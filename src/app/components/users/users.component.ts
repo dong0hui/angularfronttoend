@@ -9,12 +9,25 @@ import { User } from '../../models/User';
 })
 export class UsersComponent implements OnInit {
 
+  user: User = {
+    firstName: '',
+    lastName: '',
+    age: undefined,
+    address: {
+      street: '',
+      city: '',
+      state: ''
+    },
+    image: '',
+    isActive: undefined,
+    registered: null,
+    hide: true
+  };
   users!: User[];
   showExtended: boolean = false;
   enableAdd: boolean = true;
   loaded: boolean = true;
-  currentClasses = {};
-  currentStyles = {};
+  addUserForm: boolean = false;
 
   constructor() { }
 
@@ -24,6 +37,7 @@ export class UsersComponent implements OnInit {
       {
         firstName: 'John',
         lastName: 'Doe',
+        email: 'john.doe@gmail.com',
         age: 30,
         address: {
           street: '50 Main st',
@@ -38,6 +52,7 @@ export class UsersComponent implements OnInit {
       {
         firstName: 'Karen',
         lastName: 'Williams',
+        email: 'karen.williams@gmail.com',
         age: 35,
         address: {
           street: '50 Main st',
@@ -52,6 +67,7 @@ export class UsersComponent implements OnInit {
       {
         firstName: 'Hugh',
         lastName: 'Doug',
+        email: 'hugh.doug@gmail.com',
         age: 33,
         address: {
           street: '50 Main st',
@@ -67,32 +83,36 @@ export class UsersComponent implements OnInit {
 
     this.loaded = true;
 
-    this.setCurrentClasses();
-
-    this.setCurrentStyles();
-
   }
 
-  addUser(user: User) {
-    this.users.push(user);
+  addUser() {
+    this.user.isActive = true;
+    this.user.registered = new Date();
+    this.users.unshift(this.user);
+    this.user = {
+      firstName: '',
+      lastName: '',
+      age: undefined,
+      address: {
+        street: '',
+        city: '',
+        state: ''
+      },
+      image: '',
+      isActive: undefined,
+      registered: null,
+      hide: true
+    };
   }
 
-  setCurrentClasses() {
-    this.currentClasses = {
-      'btn-light': this.enableAdd,
-      'big-text': this.enableAdd
-    }
-  }
-
-  setCurrentStyles() {
-    this.currentStyles = {
-      'padding-top': this.showExtended? '0' : '40px',
-      'font-size': this.showExtended ? '' : '40px'
-    }
+  onSubmit(e: any) {
+    console.log('Submit');
+    //e.preventDefault();
   }
 
   fireEvent(e: any) {
     console.log(e.type);
+    console.log(e.target.value);
   }
 
 }
