@@ -1,7 +1,7 @@
 <button (click)="addUserForm = !addUserForm" class="btn btn-primary mb-3">Add User</button>
 <div class="card card-body mb-3" *ngIf="addUserForm">
     <h2>Add Users</h2>
-    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm.form)">
         <div class="form-group">
             <label>First Name</label>
             <input #userFirstName="ngModel" type="text" [(ngModel)]="user.firstName" class="form-control" name="firstName" [ngClass]="{'is-invalid': userFirstName.errors && userFirstName.touched}" required minlength="2">
@@ -12,7 +12,7 @@
         </div>
         <div class="form-group">
             <label>Last Name</label>
-            <input #userLastName="ngModel" type="text" [(ngModel)]="user.lastName" class="form-control" name="lasttName" [ngClass]="{'is-invalid': userLastName.errors && userLastName.touched}" required minlength="2">
+            <input #userLastName="ngModel" type="text" [(ngModel)]="user.lastName" class="form-control" name="lastName" [ngClass]="{'is-invalid': userLastName.errors && userLastName.touched}" required minlength="2">
             <div class="invalid-feedback" *ngIf="userLastName.errors && userLastName.touched">
                 <div *ngIf="userLastName.errors['required']">Last Name is required</div>
                 <div *ngIf="userLastName.errors['minlength']">Last Name must be at least 2 characters</div>
@@ -32,11 +32,9 @@
 
 <ul class="list-unstyled" *ngIf="loaded && users.length > 0">
     <li class="card card-body mb-2" *ngFor="let item of users" [class.bg-light]="item.isActive" [style.border-color]="item.isActive ? 'green' : ''">
-        <h3> {{ item.firstName }} {{ item.lastName }} <small *ngIf="item.age && item.address"><button (click)="item.hide = !item.hide" class="btn btn-dark btn-sm"><i [ngClass]="item.hide? 'fa fa-plus' : 'fa fa-minus'"></i></button></small></h3>
-        <ul class="list-group" *ngIf="!item.hide && item.age && item?.address">
-            <li class="list-group-item">Age: {{ item.age }}</li>
-            <li class="list-group-item">Address: {{ item.address?.street }}, {{ item.address?.city }} {{ item.address?.state }}</li>
-            <li class="list-group-item">Joined: {{ item.registered | date}}</li>
+        <h3> {{ item.firstName }} {{ item.lastName }} <small *ngIf="item.firstName && item.lastName"><button (click)="item.hide = !item.hide" class="btn btn-dark btn-sm"><i [ngClass]="item.hide? 'fa fa-plus' : 'fa fa-minus'"></i></button></small></h3>
+        <ul class="list-group" *ngIf="!item.hide">
+            <li class="list-group-item">Email: {{ item.email }}</li>
         </ul>
     </li>
 </ul>
