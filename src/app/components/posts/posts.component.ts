@@ -10,6 +10,12 @@ import { Post } from '../../models/Post';
 
 export class PostsComponent {
   posts: Post[] = [];
+  currentPost: Post = {
+    id: 0,
+    title: '',
+    body: ''
+  };
+  isEdit: boolean = false;
 
 
   // Inject the PostService into the constructor
@@ -20,6 +26,15 @@ export class PostsComponent {
       console.log(posts);
       this.posts = posts;
     });
+  }
+
+  onNewPost(post: Post) {
+    this.posts.unshift(post);
+  }
+
+  editPost(post: Post) {
+    this.currentPost = post;
+    this.isEdit = true;
   }
 
 }

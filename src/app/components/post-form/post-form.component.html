@@ -1,0 +1,16 @@
+<h2>Add Post</h2>
+<div class="card card-body mb-3">
+    <form>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" class="form-control mb-1" [(ngModel)]="currentPost.title" #title>
+        </div>
+        <div class="form-group">
+            <label class="mb-1">Body</label>
+            <textarea type="text" name="body" class="form-control mb-1" [(ngModel)]="currentPost.body" #body></textarea>
+        </div>
+
+        <input type="hidden" [(ngModel)]="currentPost.id" name="id" #id>
+        <button (click)="addPost(title.value, body.value)" type="submit" class="w-100 btn btn-dark btn-primary">Submit</button>
+    </form>
+</div>
