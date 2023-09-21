@@ -10,6 +10,7 @@ import { Post } from '../../models/Post';
 export class PostFormComponent {
   @Output() newPostEvent: EventEmitter<Post> = new EventEmitter();
   @Input() currentPost!: Post;
+  @Input() isEdit!: boolean;
 
   constructor(private postService: PostService) { }
 

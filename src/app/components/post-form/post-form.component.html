@@ -11,6 +11,10 @@
         </div>
 
         <input type="hidden" [(ngModel)]="currentPost.id" name="id" #id>
-        <button (click)="addPost(title.value, body.value)" type="submit" class="w-100 btn btn-dark btn-primary">Submit</button>
+
+        <button *ngIf="!isEdit" (click)="addPost(title.value, body.value)" type="submit" class="w-100 btn btn-dark btn-primary">Submit</button>
+
+        <button *ngIf="isEdit" (click)="addPost(title.value, body.value)" type="submit" class="w-100 btn btn-dark btn-primary">Edit Post</button>
+
     </form>
 </div>
